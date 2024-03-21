@@ -1,10 +1,16 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { UserList } from './components/UserList'
 import './App.css'
+
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <main>
-      <h1 className="text-3xl">Hello</h1>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <UserList />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   )
 }
 
