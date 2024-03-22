@@ -10,7 +10,7 @@ interface UserSearchFormProps {
 export const UserSearchForm: React.FC<UserSearchFormProps> = ({ handleQuery }) => {
   return (
     <main className="p-2">
-      <TextField.Root variant="soft" radius="full" color="gray">
+      <TextField.Root variant="soft" radius="full" color="cyan">
         <TextField.Slot>
           <MagnifyingGlassIcon height="16" width="16" />
         </TextField.Slot>
