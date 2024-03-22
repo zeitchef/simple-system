@@ -9,16 +9,12 @@ export const UserList: React.FC = () => {
   const { data: users } = useQuery({ queryKey: ['users', userQuery], queryFn: () => searchUsers(userQuery) })
   const { data: repos } = useQuery({ queryKey: ['repos'], queryFn: () => getUserRepos('zeitchef') })
 
+  console.table({ user, users, repos })
+
   return (
-    <main>
-      <h1 className="text-3xl">User</h1>
-      <p>{user?.login}</p>
-
-      <h1 className="text-3xl">Users</h1>
-      <ul>{users?.items?.map((user) => <li key={user.id}>{user.login}</li>)}</ul>
-
-      <h1 className="text-3xl">Repos</h1>
-      <ul>{repos?.map((repo) => <li key={repo.id}>{repo.name}</li>)}</ul>
+    <main className="min-w-xl lg:min-w-2xl flex flex-col items-center rounded-xl border border-gray-300 p-2">
+      <div className="w-full rounded-xl bg-red-300 p-4">UserSearch</div>
+      <div className="mt-2 w-full rounded-xl bg-blue-300 p-4">UserAccordions</div>
     </main>
   )
 }

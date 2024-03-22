@@ -7,7 +7,7 @@ const queryClient = new QueryClient()
 
 function App() {
   return (
-    <main className="p-4">
+    <main className="flex items-center justify-center">
       <QueryClientProvider client={queryClient}>
         <UserList />
         <ReactQueryDevtools initialIsOpen={false} />
