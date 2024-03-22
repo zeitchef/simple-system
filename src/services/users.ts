@@ -11,7 +11,7 @@ const GithubClient = axios.create({
 })
 
 // https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-users
-export const searchUsers = async (query: string): Promise<SearchUsersResponse> => {
+export const searchUsers = async (query: string | null): Promise<SearchUsersResponse> => {
   const { data } = await GithubClient.get(`/search/users?q=${query}&page=1&per_page=5`)
   return data
 }
