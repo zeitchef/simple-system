@@ -7,10 +7,12 @@ const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <UserList />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <main className="p-4">
+      <QueryClientProvider client={queryClient}>
+        <UserList />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </main>
   )
 }
 

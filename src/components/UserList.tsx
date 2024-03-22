@@ -1,11 +1,14 @@
-// import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { getUser, searchUsers, getUserRepos } from '../services/users'
 
-const user = await getUser('zeitchef')
-const users = await searchUsers('zeit')
-const repos = await getUserRepos('zeitchef')
-
 export const UserList: React.FC = () => {
+  const [userQuery] = useState('zeit')
+
+  const { data: user } = useQuery({ queryKey: ['user'], queryFn: () => getUser('zeitchef') })
+  const { data: users } = useQuery({ queryKey: ['users', userQuery], queryFn: () => searchUsers(userQuery) })
+  const { data: repos } = useQuery({ queryKey: ['repos'], queryFn: () => getUserRepos('zeitchef') })
+
   return (
     <main>
       <h1 className="text-3xl">User</h1>
