@@ -1,76 +1,91 @@
-import { forwardRef } from 'react'
 import { getUserRepos } from '../services/users'
-import type { SearchUsersResponse, UserReposResponse } from '../types/users'
+import type { SearchUsersResponse, UserReposResponse, UserRepo } from '../types/users'
 import * as Accordion from '@radix-ui/react-accordion'
-import { ChevronDownIcon } from '@radix-ui/react-icons'
+import { Card } from '@radix-ui/themes'
+import { ChevronDownIcon, StarFilledIcon } from '@radix-ui/react-icons'
 import clsx from 'clsx'
 import '../assets/css/accordion.css'
 import { useQueries } from '@tanstack/react-query'
 
-interface UserSearchResultsProps {
-  users?: SearchUsersResponse
-  repos?: UserReposResponse
+interface AccordionItemProps {
+  children: React.ReactNode
+  className?: string
+  props?: unknown
 }
 
-const AccordionTrigger = forwardRef(({ children, className, ...props }, forwardedRef) => (
+const AccordionTrigger: React.FC<AccordionItemProps> = ({ children, className, ...props }) => (
   <Accordion.Header className="AccordionHeader">
-    <Accordion.Trigger className={clsx('AccordionTrigger', className)} {...props} ref={forwardedRef}>
+    <Accordion.Trigger className={clsx('AccordionTrigger', className)} {...props}>
       {children}
       <ChevronDownIcon className="AccordionChevron" aria-hidden />
     </Accordion.Trigger>
   </Accordion.Header>
-))
+)
 
-const AccordionContent = forwardRef(({ children, className, ...props }, forwardedRef) => (
-  <Accordion.Content className={clsx('AccordionContent', className)} {...props} ref={forwardedRef}>
+const AccordionContent: React.FC<AccordionItemProps> = ({ children, className, ...props }) => (
+  <Accordion.Content className={clsx('AccordionContent', className)} {...props}>
     <div className="AccordionContentText">{children}</div>
   </Accordion.Content>
-))
+)
 
-// TODO: RepoCard
-interface UserReposProps {
+interface RepoCardProps {
   repos: UserReposResponse[]
 }
 
-const RepoCard: React.FC<UserReposProps> = ({ repos }) => {
+const RepoCard: React.FC<RepoCardProps> = ({ repos }) => {
   return (
     <>
-      {!repos.length && <div className="w-full rounded-xl p-4">This user has repos</div>}
-      {repos.map((repo) => (
-        <div key={repo.id} className="w-full rounded-xl border border-gray-300 p-4">
-          <a href={repo.html_url} target="_blank" rel="noreferrer">
-            {repo.name}
-          </a>
-        </div>
-      ))}
+      {!repos.length && <div className="w-full rounded-xl py-4">This user has no repos</div>}
+      {repos.length
+        ? repos.map((repo: UserRepo) => (
+            <Card
+              variant="surface"
+              key={repo.id}
+              className="mb-3 border-none shadow-sm last-of-type:mb-0 hover:shadow-md"
+              asChild
+            >
+              <a href={repo.html_url}>
+                <section className="flex justify-between">
+                  <p className="text-lg font-bold">{repo.name}</p>
+                  <div className="flex items-center gap-1 text-sm">
+                    <span>{repo.stargazers_count}</span>
+                    <StarFilledIcon />
+                  </div>
+                </section>
+                <span className="text-sm">{repo.description || 'No description'}</span>
+              </a>
+            </Card>
+          ))
+        : null}
     </>
   )
 }
 
-export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ users }) => {
+interface UserSearchResultsProps {
+  query: string | null
+  users?: SearchUsersResponse
+  repos?: UserReposResponse
+}
+
+export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ query, users }) => {
   const repos = useQueries({
     queries: [
-      { queryKey: ['repos', users.items[0].login], queryFn: () => getUserRepos(users.items[0].login) },
-      { queryKey: ['repos', users.items[1].login], queryFn: () => getUserRepos(users.items[1].login) },
-      { queryKey: ['repos', users.items[2].login], queryFn: () => getUserRepos(users.items[2].login) },
-      { queryKey: ['repos', users.items[3].login], queryFn: () => getUserRepos(users.items[3].login) },
-      { queryKey: ['repos', users.items[4].login], queryFn: () => getUserRepos(users.items[4].login) },
+      { queryKey: ['repos', users?.items[0]?.login], queryFn: () => getUserRepos(users?.items[0]?.login) },
+      { queryKey: ['repos', users?.items[1]?.login], queryFn: () => getUserRepos(users?.items[1]?.login) },
+      { queryKey: ['repos', users?.items[2]?.login], queryFn: () => getUserRepos(users?.items[2]?.login) },
+      { queryKey: ['repos', users?.items[3]?.login], queryFn: () => getUserRepos(users?.items[3]?.login) },
+      { queryKey: ['repos', users?.items[4]?.login], queryFn: () => getUserRepos(users?.items[4]?.login) },
     ],
     enabled: !!users,
   })
 
-  // TODO: Memoize function
-  const filterUserRepos = (repos: UserReposResponse, userId: number) => {
-    return repos.filter((repo) => repo.owner.id === userId)
-  }
-
   return (
-    <section className="w-full p-2">
-      <Accordion.Root className={clsx('AccordionRoot', ['shadow-sm'])} type="single" collapsible>
+    <section className="w-full px-2">
+      <Accordion.Root className={clsx('AccordionRoot', [''])} type="single" collapsible>
         {users?.items?.map((user, index) => (
           <Accordion.Item className="AccordionItem" key={user.login} value={user.login}>
-            <AccordionTrigger className="hover:bg-gray-50">{user.login}</AccordionTrigger>
-            <AccordionContent className="bg-gray-50">
+            <AccordionTrigger className="px-1 hover:bg-gray-50">{user.login}</AccordionTrigger>
+            <AccordionContent className="p-0">
               {repos[index].data && <RepoCard repos={repos[index].data} />}
             </AccordionContent>
           </Accordion.Item>

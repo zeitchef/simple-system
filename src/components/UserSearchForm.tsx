@@ -10,11 +10,11 @@ interface UserSearchFormProps {
 export const UserSearchForm: React.FC<UserSearchFormProps> = ({ handleQuery }) => {
   return (
     <main className="p-2">
-      <TextField.Root variant="soft" radius="full" color="cyan">
+      <TextField.Root variant="soft" radius="full" color="plum">
         <TextField.Slot>
           <MagnifyingGlassIcon height="16" width="16" />
         </TextField.Slot>
-        <TextField.Input placeholder="Search Github users..." onChange={handleQuery} />
+        <TextField.Input placeholder="Search Github usernames" onChange={handleQuery} />
       </TextField.Root>
     </main>
   )
