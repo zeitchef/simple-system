@@ -44,6 +44,7 @@ export const UserSearch: React.FC<{ className?: string }> = ({ className }) => {
         'my-12 w-[600px] flex-col items-center rounded-xl border border-gray-400 bg-white p-2',
         className
       )}
+      data-testid="user-search"
     >
       <UserSearchForm handleQuery={updateUserQuery} resetQuery={resetUserQuery} />
 
