@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import { getUserRepos } from '../services/users'
 import type { SearchUsersResponse, UserReposResponse, UserRepo } from '../types/users'
 import * as Accordion from '@radix-ui/react-accordion'
@@ -13,20 +14,20 @@ interface AccordionItemProps {
   props?: unknown
 }
 
-const AccordionTrigger: React.FC<AccordionItemProps> = ({ children, className, ...props }) => (
+const AccordionTrigger = forwardRef<HTMLButtonElement, AccordionItemProps>(({ children, className, ...props }, ref) => (
   <Accordion.Header className="AccordionHeader">
-    <Accordion.Trigger className={clsx('AccordionTrigger', className)} {...props}>
+    <Accordion.Trigger className={clsx('AccordionTrigger', className)} {...props} ref={ref}>
       {children}
       <ChevronDownIcon className="AccordionChevron" aria-hidden />
     </Accordion.Trigger>
   </Accordion.Header>
-)
+))
 
-const AccordionContent: React.FC<AccordionItemProps> = ({ children, className, ...props }) => (
-  <Accordion.Content className={clsx('AccordionContent', className)} {...props}>
+const AccordionContent = forwardRef<HTMLDivElement, AccordionItemProps>(({ children, className, ...props }, ref) => (
+  <Accordion.Content className={clsx('AccordionContent', className)} {...props} ref={ref}>
     <div className="AccordionContentText">{children}</div>
   </Accordion.Content>
-)
+))
 
 interface RepoCardProps {
   repos: UserReposResponse[]
@@ -44,7 +45,7 @@ const RepoCard: React.FC<RepoCardProps> = ({ repos }) => {
               className="mb-3 border-none shadow-sm last-of-type:mb-0 hover:shadow-md"
               asChild
             >
-              <a href={repo.html_url}>
+              <a href={repo.html_url} target="_blank" rel="noreferrer">
                 <section className="flex justify-between">
                   <p className="text-lg font-bold">{repo.name}</p>
                   <div className="flex items-center gap-1 text-sm">
@@ -81,7 +82,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ query, use
 
   return (
     <section className="w-full px-2">
-      <Accordion.Root className={clsx('AccordionRoot', [''])} type="single" collapsible>
+      <Accordion.Root className={clsx('AccordionRoot', [''])} type="single" orientation="vertical" collapsible>
         {users?.items?.map((user, index) => (
           <Accordion.Item className="AccordionItem" key={user.login} value={user.login}>
             <AccordionTrigger className="px-1 hover:bg-gray-50">{user.login}</AccordionTrigger>
