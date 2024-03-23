@@ -4,21 +4,21 @@ interface SearchUserItem {
   login: string
   id: number
   node_id: string
-  avatar_url?: URL
-  gravatar_id?: URL
-  url: URL
-  html_url: URL
-  followers_url?: URL
-  subscriptions_url?: URL
-  organizations_url?: URL
-  repos_url?: URL
-  received_events_url?: URL
+  avatar_url?: string
+  gravatar_id?: string
+  url: string
+  html_url: string
+  followers_url?: string
+  subscriptions_url?: string
+  organizations_url?: string
+  repos_url?: string
+  received_events_url?: string
   type: string
   score?: number
-  following_url?: URL
-  gists_url?: URL
-  starred_url?: URL
-  events_url?: URL
+  following_url?: string
+  gists_url?: string
+  starred_url?: string
+  events_url?: string
   site_admin?: boolean
 }
 
@@ -34,19 +34,19 @@ export interface GetUserResponse {
   login: string
   id: number
   node_id: string
-  avatar_url?: URL
-  gravatar_id?: URL
-  url: URL
-  html_url?: URL
-  followers_url?: URL
-  following_url?: URL
-  gists_url?: URL
-  starred_url?: URL
-  subscriptions_url?: URL
-  organizations_url?: URL
-  repos_url?: URL
-  events_url?: URL
-  received_events_url?: URL
+  avatar_url?: string
+  gravatar_id?: string
+  url: string
+  html_url?: string
+  followers_url?: string
+  following_url?: string
+  gists_url?: string
+  starred_url?: string
+  subscriptions_url?: string
+  organizations_url?: string
+  repos_url?: string
+  events_url?: string
+  received_events_url?: string
   type?: string
   site_admin?: boolean
   name: string
@@ -71,76 +71,76 @@ interface RepoOwner {
   login: string
   id: number
   node_id: string
-  avatar_url: URL
+  avatar_url: string
   gravatar_id: string
-  url: URL
-  html_url: URL
-  followers_url: URL
-  following_url: URL
-  gists_url: URL
-  starred_url: URL
-  subscriptions_url: URL
-  organizations_url: URL
-  repos_url: URL
-  events_url: URL
-  received_events_url: URL
+  url: string
+  html_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  starred_url: string
+  subscriptions_url: string
+  organizations_url: string
+  repos_url: string
+  events_url: string
+  received_events_url: string
   type: string
   site_admin: boolean
 }
 
-interface UserRepo {
+export interface UserRepo {
   id: number
   node_id: string
   name: string
   full_name: string
   owner: RepoOwner
   private: boolean
-  html_url: URL
+  html_url: string
   description: string
   fork: boolean
-  url: URL
-  archive_url: URL
-  assignees_url: URL
-  blobs_url: URL
-  branches_url: URL
-  collaborators_url: URL
-  comments_url: URL
-  commits_url: URL
-  compare_url: URL
-  contents_url: URL
-  contributors_url: URL
-  deployments_url: URL
-  downloads_url: URL
-  events_url: URL
-  forks_url: URL
-  git_commits_url: URL
-  git_refs_url: URL
-  git_tags_url: URL
-  git_url: URL
-  issue_comment_url: URL
-  issue_events_url: URL
-  issues_url: URL
-  keys_url: URL
-  labels_url: URL
-  languages_url: URL
-  merges_url: URL
-  milestones_url: URL
-  notifications_url: URL
-  pulls_url: URL
-  releases_url: URL
-  ssh_url: URL
-  stargazers_url: URL
-  statuses_url: URL
-  subscribers_url: URL
-  subscription_url: URL
-  tags_url: URL
-  teams_url: URL
-  trees_url: URL
-  clone_url: URL
-  mirror_url: URL
-  hooks_url: URL
-  svn_url: URL
-  homepage: URL
+  url: string
+  archive_url: string
+  assignees_url: string
+  blobs_url: string
+  branches_url: string
+  collaborators_url: string
+  comments_url: string
+  commits_url: string
+  compare_url: string
+  contents_url: string
+  contributors_url: string
+  deployments_url: string
+  downloads_url: string
+  events_url: string
+  forks_url: string
+  git_commits_url: string
+  git_refs_url: string
+  git_tags_url: string
+  git_url: string
+  issue_comment_url: string
+  issue_events_url: string
+  issues_url: string
+  keys_url: string
+  labels_url: string
+  languages_url: string
+  merges_url: string
+  milestones_url: string
+  notifications_url: string
+  pulls_url: string
+  releases_url: string
+  ssh_url: string
+  stargazers_url: string
+  statuses_url: string
+  subscribers_url: string
+  subscription_url: string
+  tags_url: string
+  teams_url: string
+  trees_url: string
+  clone_url: string
+  mirror_url: string
+  hooks_url: string
+  svn_url: string
+  homepage: string
   language?: string
   forks_count?: number
   stargazers_count?: number
