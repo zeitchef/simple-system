@@ -15,8 +15,11 @@ function App() {
   return (
     <Theme>
       <header className="mx-auto mt-24 max-w-xl px-4 md:px-1">
-        <h1 className="font-quattrocento-sans text-6xl font-bold">Github User Search</h1>
-        <p className="mt-4 px-1">Search for Github users with similar usernames and find their repos.</p>
+        <h1 className="font-quattrocento-sans text-5xl font-bold">Github User Search</h1>
+        <p className="mt-4 px-1">
+          Github User Search allows you to search for Github usernames. Simply search for a user, and we will show you
+          the top five users that match your query. Happy searching!
+        </p>
       </header>
       <main className="flex items-center justify-center">
         <QueryClientProvider client={queryClient}>
