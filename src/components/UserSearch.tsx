@@ -17,7 +17,7 @@ const ErrorState: React.FC<{ message: string }> = ({ message }) => {
 }
 
 export const UserSearch: React.FC<{ className?: string }> = ({ className }) => {
-  const [userQuery, setUserQuery] = useState<string | null>(null)
+  const [userQuery, setUserQuery] = useState<string>('')
   const debouncedUserQuery = useDebounce(userQuery, 300)
 
   const {
@@ -30,18 +30,22 @@ export const UserSearch: React.FC<{ className?: string }> = ({ className }) => {
     enabled: !!debouncedUserQuery,
   })
 
-  const updateQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const updateUserQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserQuery(event.target.value)
+  }
+
+  const resetUserQuery = () => {
+    setUserQuery('')
   }
 
   return (
     <main
       className={clsx(
-        'my-12 w-[600px] flex-col items-center rounded-xl border border-gray-200 bg-white p-2',
+        'my-12 w-[600px] flex-col items-center rounded-xl border border-gray-400 bg-white p-2',
         className
       )}
     >
-      <UserSearchForm handleQuery={updateQuery} />
+      <UserSearchForm handleQuery={updateUserQuery} resetQuery={resetUserQuery} />
 
       {usersIsLoading && <LoadingState />}
       {usersError && <ErrorState message={usersError.message} />}

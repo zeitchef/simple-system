@@ -1,20 +1,34 @@
-import { TextField } from '@radix-ui/themes'
+import { useRef } from 'react'
+import { TextField, Button } from '@radix-ui/themes'
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 
 interface UserSearchFormProps {
   handleQuery: (event: React.ChangeEvent<HTMLInputElement>) => void
+  resetQuery: () => void
 }
 
-// TODO: Add zod form validation?
+export const UserSearchForm: React.FC<UserSearchFormProps> = ({ handleQuery, resetQuery }) => {
+  const inputRef = useRef<HTMLInputElement>(null)
 
-export const UserSearchForm: React.FC<UserSearchFormProps> = ({ handleQuery }) => {
+  const handleReset = () => {
+    if (inputRef.current) inputRef.current.value = ''
+    resetQuery()
+  }
+
   return (
     <main className="p-2">
       <TextField.Root variant="soft" radius="full" color="plum">
         <TextField.Slot>
           <MagnifyingGlassIcon height="16" width="16" />
         </TextField.Slot>
-        <TextField.Input placeholder="Search Github usernames" onChange={handleQuery} />
+        <TextField.Input ref={inputRef} placeholder="Search Github usernames" onChange={handleQuery} />
+        {inputRef.current?.value && (
+          <TextField.Slot>
+            <Button size="1" radius="full" color="gray" onClick={handleReset}>
+              Clear
+            </Button>
+          </TextField.Slot>
+        )}
       </TextField.Root>
     </main>
   )
