@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { getUserRepos } from '../services/users'
-import type { SearchUsersResponse, UserReposResponse, UserRepo } from '../types/users'
+import type { SearchUsersResponse, UserRepo } from '../types/users'
 import * as Accordion from '@radix-ui/react-accordion'
 import { Card } from '@radix-ui/themes'
 import { ChevronDownIcon, StarFilledIcon } from '@radix-ui/react-icons'
@@ -30,7 +30,7 @@ const AccordionContent = forwardRef<HTMLDivElement, AccordionItemProps>(({ child
 ))
 
 interface RepoCardProps {
-  repos: UserReposResponse[]
+  repos: UserRepo[]
 }
 
 const RepoCard: React.FC<RepoCardProps> = ({ repos }) => {
@@ -38,7 +38,7 @@ const RepoCard: React.FC<RepoCardProps> = ({ repos }) => {
     <>
       {!repos.length && <div className="w-full rounded-xl py-4">This user has no repos</div>}
       {repos.length
-        ? repos.map((repo: UserRepo) => (
+        ? repos.map((repo) => (
             <Card
               variant="surface"
               key={repo.id}
@@ -63,34 +63,31 @@ const RepoCard: React.FC<RepoCardProps> = ({ repos }) => {
 }
 
 interface UserSearchResultsProps {
-  query: string | null
-  users?: SearchUsersResponse
-  repos?: UserReposResponse
+  users: SearchUsersResponse
 }
 
-export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ query, users }) => {
+export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ users }) => {
+  const userIndices = [0, 1, 2, 3, 4]
+
   const repos = useQueries({
-    queries: [
-      { queryKey: ['repos', users?.items[0]?.login], queryFn: () => getUserRepos(users?.items[0]?.login) },
-      { queryKey: ['repos', users?.items[1]?.login], queryFn: () => getUserRepos(users?.items[1]?.login) },
-      { queryKey: ['repos', users?.items[2]?.login], queryFn: () => getUserRepos(users?.items[2]?.login) },
-      { queryKey: ['repos', users?.items[3]?.login], queryFn: () => getUserRepos(users?.items[3]?.login) },
-      { queryKey: ['repos', users?.items[4]?.login], queryFn: () => getUserRepos(users?.items[4]?.login) },
-    ],
-    enabled: !!users,
+    queries: userIndices.map((id) => ({
+      queryKey: ['repos', users?.items[id].login],
+      queryFn: () => getUserRepos(users?.items[id].login),
+    })),
   })
 
   return (
     <section className="w-full px-2">
       <Accordion.Root className={clsx('AccordionRoot', [''])} type="single" orientation="vertical" collapsible>
-        {users?.items?.map((user, index) => (
-          <Accordion.Item className="AccordionItem" key={user.login} value={user.login}>
-            <AccordionTrigger className="px-1 hover:bg-gray-50">{user.login}</AccordionTrigger>
-            <AccordionContent className="p-0">
-              {repos[index].data && <RepoCard repos={repos[index].data} />}
-            </AccordionContent>
-          </Accordion.Item>
-        ))}
+        {users &&
+          users.items.map((user, index) => (
+            <Accordion.Item className="AccordionItem" key={user.login} value={user.login}>
+              <AccordionTrigger className="px-1 hover:bg-gray-50">{user.login}</AccordionTrigger>
+              <AccordionContent className="p-0">
+                <RepoCard repos={repos[index].data || []} />
+              </AccordionContent>
+            </Accordion.Item>
+          ))}
       </Accordion.Root>
     </section>
   )

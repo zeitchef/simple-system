@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GetUserResponse, SearchUsersResponse, UserReposResponse } from '../types/users'
+import { GetUserResponse, SearchUsersResponse, UserRepo } from '../types/users'
 
 const GithubClient = axios.create({
   baseURL: 'https://api.github.com',
@@ -12,6 +12,7 @@ const GithubClient = axios.create({
 
 // https://docs.github.com/en/rest/search/search?apiVersion=2022-11-28#search-users
 export const searchUsers = async (query: string | null): Promise<SearchUsersResponse> => {
+  if (!query) throw new Error('No query provided')
   const { data } = await GithubClient.get(`/search/users?q=${query}&page=1&per_page=5`)
   return data
 }
@@ -23,7 +24,8 @@ export const getUser = async (username: string): Promise<GetUserResponse> => {
 }
 
 // https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user
-export const getUserRepos = async (username: string): Promise<UserReposResponse> => {
+export const getUserRepos = async (username: string | undefined): Promise<UserRepo[]> => {
+  if (!username) throw new Error('No username provided')
   const { data } = await GithubClient.get(`/users/${username}/repos`)
   return data
 }

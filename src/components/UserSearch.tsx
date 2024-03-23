@@ -51,7 +51,7 @@ export const UserSearch: React.FC<{ className?: string }> = ({ className }) => {
       {usersError && <ErrorState message={usersError.message} />}
       {users && !users?.items?.length && debouncedUserQuery && <EmptyState />}
 
-      {users && <UserSearchResults query={debouncedUserQuery} users={users} />}
+      {users && <UserSearchResults users={users} />}
     </main>
   )
 }
