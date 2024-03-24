@@ -16,7 +16,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "allowUmdGoodGlobalAccess": true,
+    "allowUmdGlobalAccess": true,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
