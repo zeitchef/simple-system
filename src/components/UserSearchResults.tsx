@@ -77,8 +77,8 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({ users }) =
   })
 
   return (
-    <section className="w-full px-2">
-      <Accordion.Root className={clsx('AccordionRoot', [''])} type="single" orientation="vertical" collapsible>
+    <section data-testid="user-search-results" className="w-full px-2">
+      <Accordion.Root className="AccordionRoot" type="single" orientation="vertical" collapsible>
         {users &&
           users.items.map((user, index) => (
             <Accordion.Item className="AccordionItem" key={user.login} value={user.login}>

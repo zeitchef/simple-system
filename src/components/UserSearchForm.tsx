@@ -16,12 +16,18 @@ export const UserSearchForm: React.FC<UserSearchFormProps> = ({ handleQuery, res
   }
 
   return (
-    <main className="p-2" onKeyDown={(e) => e.key === 'Escape' && handleReset()}>
+    <main data-testid="user-search-form" className="p-2" onKeyDown={(e) => e.key === 'Escape' && handleReset()}>
       <TextField.Root variant="soft" radius="full" color="plum">
         <TextField.Slot>
           <MagnifyingGlassIcon height="16" width="16" />
         </TextField.Slot>
-        <TextField.Input ref={inputRef} placeholder="Search Github usernames" autoFocus onChange={handleQuery} />
+        <TextField.Input
+          data-testid="user-search-input"
+          ref={inputRef}
+          placeholder="Search Github usernames"
+          autoFocus
+          onChange={handleQuery}
+        />
         {inputRef.current?.value && (
           <TextField.Slot>
             <Button size="1" radius="full" color="gray" onClick={handleReset}>
