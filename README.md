@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# Github User Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Query Github API for usernames and get a list of five users with similar
+usernames and their respective public repos.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install dependencies and run the dev server:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```sh
+pnpm install && pnpm dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Technical Features
+
+The project utilizes the following technologies:
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [TailwindCSS](https://tailwindcss.com/): responsive, utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com/): component library
+- [Tanstack Query 5](https://tanstack.com/query/latest): data fetching, cache management, request batching, error handling
+- [Vitest](https://vitest.dev/)
+- [Vitest Coverage](https://vitest.dev/coverage)
+- [React Testing Library](https://testing-library.com/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
+
+## Regarding tests
+
+The project uses [Vitest](https://vitest.dev/) and [Vitest
+Coverage](https://vitest.dev/coverage) to run tests. I did not however choose to
+spend a lot of time here, being involved in multiple interview processes at the
+moment. I have tried to deliver a minimal example.
