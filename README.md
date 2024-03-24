@@ -35,8 +35,7 @@ Some key areas I've focused on include:
 
 ## Regarding tests
 
-The project uses [Vitest](https://vitest.dev/) and [Vitest
-Coverage](https://vitest.dev/coverage) to run tests. I did not however choose to
+The project uses [Vitest](https://vitest.dev/). I did not however choose to
 spend a lot of time here, being involved in multiple interview processes at the
 moment. I have tried to deliver a minimal example.
 
